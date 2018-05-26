@@ -10,8 +10,14 @@ public class PlayerController : MonoBehaviour {
     private bool faceRight = true;
     private bool attack;
     private bool canAttack;
-    
-    
+    private bool grounded;
+    private bool jumping;
+    bool moveRight;
+    bool moveLeft;
+    bool attacking;
+
+
+
     public float jumpVelocity = 10f;
 
     public LayerMask groundLayer;
@@ -29,34 +35,16 @@ public class PlayerController : MonoBehaviour {
 	
     
 	// Update is called once per frame
-	void Update () {
-        bool moveRight = Input.GetKey("right");
-        bool moveLeft = Input.GetKey("left");
-        bool grounded = isGrounded();
-        bool attacking = Input.GetKey("z");
+	void FixedUpdate () {
+        moveRight = Input.GetKey("right");
+        moveLeft = Input.GetKey("left");
+        attacking = Input.GetKey("z");
+        jumping = Input.GetButtonDown("Jump");
 
-        if (moveRight && !moveLeft)
-        {
-            rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
-            if (!faceRight)
-            {
-                Flip();
-            }
-        }
-        else if (moveLeft && !moveRight)
-        {
-            rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
-            if (faceRight)
-            {
-                Flip();
-            }
-        }
-        else
-        {
-            rb.velocity = new Vector2(0, rb.velocity.y);
-        }
+        grounded = isGrounded();
 
-        if (Input.GetButtonDown("Jump") && grounded)
+        HandleHorizontalMovement();
+        if (jumping && grounded)
         {
             rb.velocity = Vector2.up * jumpVelocity;
         }
@@ -69,15 +57,64 @@ public class PlayerController : MonoBehaviour {
         {
             attack = true;
         }
-        HandleAttacks();
-        if (grounded)
-        {
-            HandleMovement();
-        }
+        HandleAnimations();
         resetValues();
 
 
         
+    }
+
+    private void HandleAnimations()
+    {
+        Debug.Log(jumping);
+        
+        if (grounded)
+        {
+            animator.SetBool("jumping", false);
+            animator.SetFloat("speed", Math.Abs(rb.velocity.x));
+            if (attack)
+            {
+                animator.SetTrigger("attack");
+                canAttack = false;
+            }
+        }
+        else
+        {
+            animator.SetBool("jumping", true);
+            if (attack)
+            {
+                animator.SetTrigger("jumpAttack");
+                canAttack = false;
+            }
+        }
+    }
+
+
+    private void HandleHorizontalMovement()
+    {
+        if (moveRight && !moveLeft)
+        {
+            rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
+            // Flip sprite if other direction
+            if (!faceRight)
+            {
+                Flip();
+            }
+        }
+        else if (moveLeft && !moveRight)
+        {
+            rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
+            // Flip sprite if faving new direction
+            if (faceRight)
+            {
+                Flip();
+            }
+        }
+        // when not going left or right it stops moving in the x direction
+        else
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
     }
 
     private void resetValues()
@@ -107,19 +144,6 @@ public class PlayerController : MonoBehaviour {
         transform.localScale = localScale;
     }
 
-    private void HandleAttacks()
-    {
-        if (attack)
-        {
-            animator.SetTrigger("attack");
-            canAttack = false;
-        }
-    }
-
-    private void HandleMovement()
-    {
-        animator.SetFloat("speed", Math.Abs(rb.velocity.x));
-    }
 
     public void setMeleeCollider()
     {

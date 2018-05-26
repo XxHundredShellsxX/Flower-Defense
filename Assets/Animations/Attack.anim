@@ -28,7 +28,9 @@ AnimationClip:
       value: {fileID: 21300000, guid: 88382832b24f3574fbbb861cf6e1cdb3, type: 3}
     - time: 0.2
       value: {fileID: 21300000, guid: fe77c75c3ea9ec64f84a0ac3c63f4968, type: 3}
-    - time: 0.32
+    - time: 0.28
+      value: {fileID: 21300000, guid: 4a742e8de1947ba4eaf8d3c476ae6f1d, type: 3}
+    - time: 0.36
       value: {fileID: 21300000, guid: 4a742e8de1947ba4eaf8d3c476ae6f1d, type: 3}
     attribute: m_Sprite
     path: 
@@ -55,12 +57,13 @@ AnimationClip:
     - {fileID: 21300000, guid: 88382832b24f3574fbbb861cf6e1cdb3, type: 3}
     - {fileID: 21300000, guid: fe77c75c3ea9ec64f84a0ac3c63f4968, type: 3}
     - {fileID: 21300000, guid: 4a742e8de1947ba4eaf8d3c476ae6f1d, type: 3}
+    - {fileID: 21300000, guid: 4a742e8de1947ba4eaf8d3c476ae6f1d, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.35999998
+    m_StopTime: 0.4
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -95,7 +98,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.32
+  - time: 0.36
     functionName: setMeleeCollider
     data: 
     objectReferenceParameter: {fileID: 0}
