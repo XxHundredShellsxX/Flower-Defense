@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerController : MonoBehaviour {
 
@@ -8,6 +9,8 @@ public class PlayerController : MonoBehaviour {
     public float moveSpeed = 10f;
     private bool faceRight = true;
     private bool attack;
+    private bool canAttack;
+    
     
     public float jumpVelocity = 10f;
 
@@ -15,20 +18,24 @@ public class PlayerController : MonoBehaviour {
 
     private Rigidbody2D rb;
     private Animator animator;
+    public EdgeCollider2D MeleeCollider2;
 
-	void Awake () {
+
+    void Awake () {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-	}
+
+    }
 	
     
 	// Update is called once per frame
 	void Update () {
         bool moveRight = Input.GetKey("right");
         bool moveLeft = Input.GetKey("left");
+        bool grounded = isGrounded();
         bool attacking = Input.GetKey("z");
 
-        if(moveRight && !moveLeft)
+        if (moveRight && !moveLeft)
         {
             rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
             if (!faceRight)
@@ -49,21 +56,35 @@ public class PlayerController : MonoBehaviour {
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
 
-        if (Input.GetButtonDown("Jump") && isGrounded())
+        if (Input.GetButtonDown("Jump") && grounded)
         {
             rb.velocity = Vector2.up * jumpVelocity;
         }
-        if (attacking)
+        // player cant attack again until they let go of attack button
+        if (!attacking)
+        {
+            canAttack = true;
+        }
+        if (attacking && canAttack)
         {
             attack = true;
         }
         HandleAttacks();
+        if (grounded)
+        {
+            HandleMovement();
+        }
+        resetValues();
+
 
         
     }
 
-
-    bool isGrounded()
+    private void resetValues()
+    {
+        attack = false;
+    }
+    private bool isGrounded()
     {
         Vector2 position = transform.position;
         Vector2 direction = Vector2.down;
@@ -77,7 +98,7 @@ public class PlayerController : MonoBehaviour {
         return false;
     }
 
-    void Flip()
+    private void Flip()
 
     {
         faceRight = !faceRight;
@@ -86,12 +107,22 @@ public class PlayerController : MonoBehaviour {
         transform.localScale = localScale;
     }
 
-    void HandleAttacks()
+    private void HandleAttacks()
     {
         if (attack)
         {
             animator.SetTrigger("attack");
+            canAttack = false;
         }
-        attack = false;
+    }
+
+    private void HandleMovement()
+    {
+        animator.SetFloat("speed", Math.Abs(rb.velocity.x));
+    }
+
+    public void setMeleeCollider()
+    {
+        MeleeCollider2.enabled = !MeleeCollider2.enabled;
     }
 }
