@@ -7,39 +7,61 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     public float moveSpeed = 10f;
     private bool faceRight = true;
-    public float moveX;
+    private bool attack;
     
     public float jumpVelocity = 10f;
 
     public LayerMask groundLayer;
 
-    Rigidbody2D rb;
+    private Rigidbody2D rb;
+    private Animator animator;
 
 	void Awake () {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
 	}
 	
     
 	// Update is called once per frame
 	void Update () {
-        moveX = Input.GetAxis("Horizontal");
-        if(moveX > 0.0f && !faceRight)
+        bool moveRight = Input.GetKey("right");
+        bool moveLeft = Input.GetKey("left");
+        bool attacking = Input.GetKey("z");
+
+        if(moveRight && !moveLeft)
         {
-            Flip();
+            rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
+            if (!faceRight)
+            {
+                Flip();
+            }
         }
-        else if (moveX < 0.0f && faceRight)
+        else if (moveLeft && !moveRight)
         {
-            Flip();
+            rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
+            if (faceRight)
+            {
+                Flip();
+            }
         }
-        rb.velocity = new Vector2(moveX * moveSpeed, rb.velocity.y);
-        // make the jump faster when player is falling
-        
+        else
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
+
         if (Input.GetButtonDown("Jump") && isGrounded())
         {
             rb.velocity = Vector2.up * jumpVelocity;
         }
+        if (attacking)
+        {
+            attack = true;
+        }
+        HandleAttacks();
+
         
     }
+
 
     bool isGrounded()
     {
@@ -62,5 +84,14 @@ public class PlayerController : MonoBehaviour {
         Vector2 localScale = transform.localScale;
         localScale.x *= -1;
         transform.localScale = localScale;
+    }
+
+    void HandleAttacks()
+    {
+        if (attack)
+        {
+            animator.SetTrigger("attack");
+        }
+        attack = false;
     }
 }
