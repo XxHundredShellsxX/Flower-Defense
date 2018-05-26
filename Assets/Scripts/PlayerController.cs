@@ -23,7 +23,11 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         moveX = Input.GetAxis("Horizontal");
-        if(moveX > 0.0f)
+        if(moveX > 0.0f && !faceRight)
+        {
+            Flip();
+        }
+        else if (moveX < 0.0f && faceRight)
         {
             Flip();
         }
@@ -54,6 +58,9 @@ public class PlayerController : MonoBehaviour {
     void Flip()
 
     {
-
+        faceRight = !faceRight;
+        Vector2 localScale = transform.localScale;
+        localScale.x *= -1;
+        transform.localScale = localScale;
     }
 }
