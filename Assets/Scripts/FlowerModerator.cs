@@ -12,7 +12,7 @@ public class FlowerModerator : MonoBehaviour {
     public GameObject GrowthPlatform;
     private bool canGrow = false;
 
-
+    private GameObject hpBar;
 
     // Use this for initialization
     void Awake () {
@@ -22,7 +22,7 @@ public class FlowerModerator : MonoBehaviour {
         requiredMaterial.Add(new List<int> { 1, 0 });
         requiredMaterial.Add(new List<int> { 1, 0 });
         animator = GetComponent<Animator>();
-
+        //hpBar = Transform.FindObjectOfType();
     }
 	
 	// Update is called once per frame
