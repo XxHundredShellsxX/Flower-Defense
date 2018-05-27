@@ -8,6 +8,8 @@ TagManager:
   - Dirt
   - Platform
   - Flower
+  - Enemy
+  - Blade
   layers:
   - Default
   - TransparentFX

@@ -1346,7 +1346,7 @@ GameObject:
   - component: {fileID: 1160285039}
   m_Layer: 0
   m_Name: MeleeCollider2
-  m_TagString: Untagged
+  m_TagString: Blade
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1633,9 +1633,11 @@ GameObject:
   - component: {fileID: 1546327315}
   - component: {fileID: 1546327314}
   - component: {fileID: 1546327313}
+  - component: {fileID: 1546327318}
+  - component: {fileID: 1546327317}
   m_Layer: 0
   m_Name: EatingEnemy1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1741,6 +1743,44 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1546327317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1546327312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94a29cd9ed1b499489a33b3c62f2d65e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 4
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  growLayer:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!50 &1546327318
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1546327312}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!1001 &1546479384
 Prefab:
   m_ObjectHideFlags: 0
@@ -1966,7 +2006,7 @@ GameObject:
   - component: {fileID: 1859412882}
   m_Layer: 0
   m_Name: MeleeCollider1
-  m_TagString: Untagged
+  m_TagString: Blade
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
