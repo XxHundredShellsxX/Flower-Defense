@@ -42,9 +42,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Default
-    uniqueID: 0
-    locked: 0
   - name: Sky
     uniqueID: 3411652749
     locked: 0
@@ -59,4 +56,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 2297034393
+    locked: 0
+  - name: Default
+    uniqueID: 0
     locked: 0

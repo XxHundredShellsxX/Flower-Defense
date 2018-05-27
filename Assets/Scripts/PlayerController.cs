@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour {
 
 
 
-    public float jumpVelocity = 10f;
+    private float jumpVelocity = 10f;
 
     public LayerMask groundLayer;
     public LayerMask growLayer;
@@ -126,13 +126,13 @@ public class PlayerController : MonoBehaviour {
     {
         attack = false;
     }
-    private bool isGrounded()
+    public bool isGrounded()
     {
         Vector2 position = transform.position;
         Vector2 direction = Vector2.down;
         float dist = 1.0f;
         RaycastHit2D hit = Physics2D.Raycast(position, direction, dist, groundLayer);
-        RaycastHit2D hitGrowthLayer = Physics2D.Raycast(position, direction, dist+0.25f, growLayer);
+        RaycastHit2D hitGrowthLayer = Physics2D.Raycast(position, direction, dist+0.04f, growLayer);
         if(hitGrowthLayer.collider != null)
         {
             onGrowthPlat = true;
@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour {
             returnSeedAmount = seedCount;
             seedCount = 0;
         }
-        return returnSeedAmount ;
+        return returnSeedAmount;
     }
 
     public int getDirt(int lim)
@@ -179,7 +179,7 @@ public class PlayerController : MonoBehaviour {
         }
         else
         {
-            returnDirtAmount = seedCount;
+            returnDirtAmount = dirtCount;
             dirtCount = 0;
         }
         return returnDirtAmount;
