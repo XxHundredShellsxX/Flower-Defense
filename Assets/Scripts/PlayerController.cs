@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour {
     bool moveRight;
     bool moveLeft;
     bool attacking;
+    int seedCount;
+    int dirtCount;
 
 
 
@@ -24,12 +26,15 @@ public class PlayerController : MonoBehaviour {
 
     private Rigidbody2D rb;
     private Animator animator;
+    public EdgeCollider2D MeleeCollider1;
     public EdgeCollider2D MeleeCollider2;
 
 
     void Awake () {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        seedCount = 0;
+        dirtCount = 0;
 
     }
 	
@@ -66,7 +71,6 @@ public class PlayerController : MonoBehaviour {
 
     private void HandleAnimations()
     {
-        Debug.Log(jumping);
         
         if (grounded)
         {
@@ -144,9 +148,27 @@ public class PlayerController : MonoBehaviour {
         transform.localScale = localScale;
     }
 
+    public void setMeleeCollider1()
+    {
+        MeleeCollider1.enabled = !MeleeCollider1.enabled;
+    }
 
-    public void setMeleeCollider()
+    public void setMeleeCollider2()
     {
         MeleeCollider2.enabled = !MeleeCollider2.enabled;
+    }
+
+    public void OnCollisionEnter2D(Collision2D obj)
+    {
+        if(obj.gameObject.tag == "Seed")
+        {
+            seedCount++;
+            Destroy(obj.gameObject);
+        }
+        if (obj.gameObject.tag == "Dirt")
+        {
+            dirtCount++;
+            Destroy(obj.gameObject);
+        }
     }
 }
