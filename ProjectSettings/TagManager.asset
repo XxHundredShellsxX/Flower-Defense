@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Seed
   - Dirt
+  - Platform
+  - Flower
   layers:
   - Default
   - TransparentFX
@@ -16,7 +18,7 @@ TagManager:
   - 
   - 
   - Ground
-  - 
+  - GrowthGround
   - 
   - 
   - 
@@ -48,6 +50,9 @@ TagManager:
     locked: 0
   - name: Ground
     uniqueID: 1931597187
+    locked: 0
+  - name: Flower
+    uniqueID: 1848826639
     locked: 0
   - name: Collectibles
     uniqueID: 2367141025

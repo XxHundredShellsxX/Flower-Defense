@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour {
     private bool canAttack;
     private bool grounded;
     private bool jumping;
+    private bool onGrowthPlat;
     bool moveRight;
     bool moveLeft;
     bool attacking;
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour {
     public float jumpVelocity = 10f;
 
     public LayerMask groundLayer;
+    public LayerMask growLayer;
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -33,6 +35,7 @@ public class PlayerController : MonoBehaviour {
     void Awake () {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        onGrowthPlat = false;
         seedCount = 0;
         dirtCount = 0;
 
@@ -64,8 +67,6 @@ public class PlayerController : MonoBehaviour {
         }
         HandleAnimations();
         resetValues();
-
-
         
     }
 
@@ -100,7 +101,7 @@ public class PlayerController : MonoBehaviour {
         {
             rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
             // Flip sprite if other direction
-            if (!faceRight)
+            if (!faceRight && canAttack)
             {
                 Flip();
             }
@@ -109,7 +110,7 @@ public class PlayerController : MonoBehaviour {
         {
             rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
             // Flip sprite if faving new direction
-            if (faceRight)
+            if (faceRight && canAttack)
             {
                 Flip();
             }
@@ -130,13 +131,58 @@ public class PlayerController : MonoBehaviour {
         Vector2 position = transform.position;
         Vector2 direction = Vector2.down;
         float dist = 1.0f;
-        Debug.DrawRay(position, direction, Color.green);
         RaycastHit2D hit = Physics2D.Raycast(position, direction, dist, groundLayer);
-        if(hit.collider != null)
+        RaycastHit2D hitGrowthLayer = Physics2D.Raycast(position, direction, dist+0.25f, growLayer);
+        if(hitGrowthLayer.collider != null)
+        {
+            onGrowthPlat = true;
+        }
+        else
+        {
+            onGrowthPlat = false;
+        }
+        if (hit.collider != null || hitGrowthLayer.collider != null)
         {
             return true;
         }
         return false;
+    }
+
+    public bool onGrowthPlatform()
+    {
+        return onGrowthPlat;
+    }
+
+    public int getSeeds(int lim)
+    {
+        int returnSeedAmount;
+        if(seedCount > lim)
+        {
+            seedCount -= lim;
+            returnSeedAmount = lim;
+        }
+        else
+        {
+            returnSeedAmount = seedCount;
+            seedCount = 0;
+        }
+        return returnSeedAmount ;
+    }
+
+    public int getDirt(int lim)
+    {
+        int returnDirtAmount;
+        if (dirtCount > lim)
+        {
+            dirtCount -= lim;
+            returnDirtAmount = lim;
+        }
+        else
+        {
+            returnDirtAmount = seedCount;
+            dirtCount = 0;
+        }
+        return returnDirtAmount;
     }
 
     private void Flip()
