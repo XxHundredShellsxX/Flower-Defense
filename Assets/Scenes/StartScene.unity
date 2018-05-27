@@ -188,7 +188,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1931597187
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300018, guid: 09e5d4fe0b37e6f42a78785fb683f8a1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1264,7 +1264,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -883314547
-  m_SortingLayer: -5
+  m_SortingLayer: -6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5ac38f35cf640324a90e3d398f3b3845, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1418,7 +1418,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1160285038}
   - component: {fileID: 1160285039}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: MeleeCollider2
   m_TagString: Blade
   m_Icon: {fileID: 0}
@@ -1783,7 +1783,7 @@ GameObject:
   - component: {fileID: 1546327313}
   - component: {fileID: 1546327318}
   - component: {fileID: 1546327317}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: EatingEnemy1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -1865,8 +1865,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1818117837
+  m_SortingLayer: -3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 67bd9cf14bc20f746906c929b8889c93, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1909,6 +1909,7 @@ MonoBehaviour:
   growLayer:
     serializedVersion: 2
     m_Bits: 0
+  Coin: {fileID: 1686661082839770, guid: 1daa93fcdf59e95409c377dabbb24a2f, type: 2}
 --- !u!50 &1546327318
 Rigidbody2D:
   serializedVersion: 4
@@ -2156,7 +2157,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1859412883}
   - component: {fileID: 1859412882}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: MeleeCollider1
   m_TagString: Blade
   m_Icon: {fileID: 0}

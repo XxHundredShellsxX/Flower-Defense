@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
 
     public LayerMask groundLayer;
     public LayerMask growLayer;
+    public GameObject Coin;
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -27,6 +28,7 @@ public class Enemy : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        sr = GetComponent<SpriteRenderer>();
         faceRight = true;
         faceLeft = false;
     }
@@ -52,20 +54,13 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Blade" && colliding)
-        {
-            colliding = false;
-        }
-    }
+
 
     public void OnCollisionEnter2D(Collision2D obj)
     {
-        if (obj.gameObject.tag == "Blade")
+        if (obj.collider.gameObject.tag == "Blade")
         {
             hp -= 10;
-            colliding = true;
         }
     }
 
@@ -83,10 +78,12 @@ public class Enemy : MonoBehaviour
             animator.SetBool("dead", true);
             if (transparency > 0)
             {
-                sr.color = new Color(1f, 1f, 1f, transparency - 0.02f);
+                transparency -= 0.02f;
+                sr.color = new Color(1f, 1f, 1f, transparency);
             }
             else
             {
+                Instantiate(Coin, transform.position, transform.rotation);
                 GameObject.Destroy(this.gameObject);
             }
         }
