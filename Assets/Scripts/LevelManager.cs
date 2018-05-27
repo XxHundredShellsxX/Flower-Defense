@@ -14,6 +14,9 @@ public class LevelManager : MonoBehaviour {
     [SerializeField]
     private Text seedText;
 
+    [SerializeField]
+    private Text dirtText;
+
     // Use this for initialization
     void Awake() {
 
@@ -31,7 +34,8 @@ public class LevelManager : MonoBehaviour {
             flower.useDirt(player.getDirt(numDirtNeeded));
         }
 
-        seedText.text = flower.getNumSeedsRequired().ToString();
+        seedText.text = player.getSeedCount().ToString()+ "/"+flower.getNumSeedsRequired().ToString();
+        dirtText.text = player.getDirtCount().ToString() + "/" + flower.getNumDirtRequired().ToString();
 
     }
 }

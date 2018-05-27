@@ -217,4 +217,14 @@ public class PlayerController : MonoBehaviour {
             Destroy(obj.gameObject);
         }
     }
+
+    public int getSeedCount()
+    {
+        return seedCount;
+    }
+
+    public int getDirtCount()
+    {
+        return dirtCount;
+    }
 }
