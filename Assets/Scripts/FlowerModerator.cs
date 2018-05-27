@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class FlowerModerator : MonoBehaviour {
+public class FlowerModerator : MonoBehaviour
+{
 
     private Animator animator;
     private int growthStage = 0;
+    private float maxHp = 1000f;
+    private int hp = 1000;
+    private bool gameOver = false;
     private List<List<int>> requiredMaterial = new List<List<int>>();
     public List<BoxCollider2D> Platforms = new List<BoxCollider2D>();
     public GameObject GrowthPlatform;
@@ -15,27 +19,40 @@ public class FlowerModerator : MonoBehaviour {
     private GameObject hpBar;
 
     // Use this for initialization
-    void Awake () {
+    void Awake()
+    {
         // initialize the material of (numSeeds, numDirt) we need for each growth stage
-        requiredMaterial.Add(new List<int> {0, 1});
-        requiredMaterial.Add(new List<int> { 1, 0 });
-        requiredMaterial.Add(new List<int> { 1, 0 });
-        requiredMaterial.Add(new List<int> { 1, 0 });
+        requiredMaterial.Add(new List<int> { 2, 3 });
+        requiredMaterial.Add(new List<int> { 3, 3 });
+        requiredMaterial.Add(new List<int> { 4, 5 });
+        requiredMaterial.Add(new List<int> { 6, 7 });
         animator = GetComponent<Animator>();
-        //hpBar = Transform.FindObjectOfType();
+        hpBar = transform.Find("HealthBar").gameObject;
     }
-	
-	// Update is called once per frame
-	void FixedUpdate () {
 
+    // Update is called once per frame
+    void FixedUpdate()
+    {
         checkLevelUp();
-		
-	}
+        changeHpBar();
 
+    }
+
+    void changeHpBar()
+    {
+        if (hp > 0)
+        {
+            hpBar.transform.localScale = new Vector3(20 * (hp / maxHp), 1, 1);
+        }
+        else
+        {
+            gameOver = true;
+        }
+    }
     public int getNumSeedsRequired()
     {
-        
-        return requiredMaterial[Math.Min(growthStage, 3)][0];  
+
+        return requiredMaterial[Math.Min(growthStage, 3)][0];
     }
 
     public int getNumDirtRequired()
@@ -45,7 +62,8 @@ public class FlowerModerator : MonoBehaviour {
 
     public void checkLevelUp()
     {
-        if(requiredMaterial[Math.Min(growthStage, 3)][0] == 0 && requiredMaterial[Math.Min(growthStage, 3)][1] == 0)
+        Debug.Log("checked");
+        if (requiredMaterial[Math.Min(growthStage, 3)][0] == 0 && requiredMaterial[Math.Min(growthStage, 3)][1] == 0)
         {
             
             changeGrowthPlatformPos();
@@ -131,6 +149,19 @@ public class FlowerModerator : MonoBehaviour {
         if (growthStage == 3)
         {
             animator.SetTrigger("grow4");
+        }
+    }
+
+    public int getGrowth()
+    {
+        return growthStage;
+    }
+
+    public void OnCollisionStay2D(Collision2D obj)
+    {
+        if(obj.gameObject.tag == "Enemy")
+        {
+            hp -= 1;
         }
     }
 
