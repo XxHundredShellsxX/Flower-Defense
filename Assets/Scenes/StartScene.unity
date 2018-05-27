@@ -863,7 +863,7 @@ GameObject:
   - component: {fileID: 780065931}
   - component: {fileID: 780065932}
   - component: {fileID: 780065933}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1344,7 +1344,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1160285038}
   - component: {fileID: 1160285039}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: MeleeCollider2
   m_TagString: Blade
   m_Icon: {fileID: 0}
@@ -1877,6 +1877,10 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1681911703627672, guid: ddacaed349c015c4a8a09c501befab06, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ddacaed349c015c4a8a09c501befab06, type: 2}
   m_IsPrefabParent: 0
@@ -2004,7 +2008,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1859412883}
   - component: {fileID: 1859412882}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: MeleeCollider1
   m_TagString: Blade
   m_Icon: {fileID: 0}
@@ -2226,3 +2230,28 @@ MonoBehaviour:
   - {fileID: 453924062}
   - {fileID: 1792957987}
   GrowthPlatform: {fileID: 1218193804}
+--- !u!61 &2146785224
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2146785219}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.050569534, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 12.8, y: 19.2}
+    newSize: {x: 12.8, y: 19.2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 5.416711, y: 19.2}
+  m_EdgeRadius: 0
